@@ -6,26 +6,25 @@ import com.example.exchangeapi.service.ExchangeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/v1/exchange")
+@RequiredArgsConstructor
 public class ExchangeController {
 
     private final ExchangeService exchangeService;
 
-    @GetMapping("/convert")
-    public ResponseEntity<ExchangeResult> convert(@RequestParam Query query){
-
+    @PostMapping("/convert")
+    public ResponseEntity<ExchangeResult> convert(@RequestBody Query query){
         ExchangeResult result = exchangeService.convert(query);
-       
-        return null;
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
     }
-
-
-    // TODO: 11.07.2023  wymiana walut ŁADNIE! 
 }

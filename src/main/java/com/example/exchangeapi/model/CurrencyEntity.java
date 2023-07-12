@@ -1,13 +1,12 @@
 package com.example.exchangeapi.model;
 
 import lombok.Data;
-import lombok.Getter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
-
-import javax.persistence.*;
 
 @Entity
 @Data
